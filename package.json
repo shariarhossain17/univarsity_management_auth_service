@@ -9,10 +9,11 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint:fix": "eslint --fix",
     "prettier:check": "yarn prettier --write .",
+    "prettier:fix": "prettier --write .",
     "lint-prettier": "yarn lint:check && yarn prettier:check"
   },
   "lint-staged": {
-    "/**/*.ts": "yarn lint-prettier"
+    "*.ts": "yarn lint-prettier"
   },
   "license": "MIT",
   "devDependencies": {
