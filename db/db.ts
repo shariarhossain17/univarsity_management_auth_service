@@ -1,11 +1,11 @@
-import colors from 'colors'
 import mongoose from 'mongoose'
+import { errorLogger, logger } from '../shared/logger'
 async function connectDB() {
   try {
     await mongoose.connect('mongodb://127.0.0.1:27017/university-management')
-    console.log(colors.red('database connected').bold)
+    logger.info('database connected')
   } catch (error) {
-    console.log('database not connect')
+    errorLogger.error('database not connect')
   }
 }
 
