@@ -4,12 +4,12 @@ import zodValidate from '../../middleware/zodValidate';
 import userController from './user.controller';
 import createUserZodSchema from './zod.user.schema';
 
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.post(
+userRoutes.post(
   '/create-user',
   zodValidate(createUserZodSchema),
   userController.createUser,
 );
 
-export default router;
+export default userRoutes;
