@@ -1,9 +1,9 @@
-import { genericError } from './errorInterFace'
+import { genericError } from './errorInterFace';
 
 type IerrorResponse = {
-  status: number
-  message: string
-  error: genericError[]
-}
+  status: number;
+  message: string;
+  error: genericError[];
+};
 
-export default IerrorResponse
+export default IerrorResponse;

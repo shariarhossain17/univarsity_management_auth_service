@@ -1,4 +1,4 @@
 export type genericError = {
-  path: string
-  message: string
-}
+  path: string | number;
+  message: string;
+};
