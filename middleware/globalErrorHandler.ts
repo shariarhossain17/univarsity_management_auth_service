@@ -3,16 +3,13 @@ import config from '../config';
 import ApiError from '../errors/ApiError';
 import handleValidationError from '../errors/handleValidationError';
 import { genericError } from '../interface/errorInterFace';
-import { errorLogger } from '../shared/logger';
 
 import { ZodError } from 'zod';
 import handleValidationZodError from '../errors/handleValidationZodError';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   // eslint-disable-next-line no-unused-expressions
-  config.env === 'development'
-    ? console.log('global error handler', error)
-    : errorLogger.error('globalErrorHandler', error);
+
   let statusCode = 500;
   let message = 'something went wrong';
   let errorMessages: genericError[] = [];
