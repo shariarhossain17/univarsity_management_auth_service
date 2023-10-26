@@ -1,4 +1,5 @@
 import ApiError from '../../errors/ApiError';
+import { IPaginationOption } from '../../interface/paginationInterface';
 import { IAcademicSemester } from './academic.semister.interface';
 import { academicSemester } from './academic.semister.model';
 import { validSemesterCode } from './academicsemester.constatnt';
@@ -12,4 +13,33 @@ export const createAcademicSemesterService = async (
   const result = await academicSemester.create(payLoad);
 
   return result;
+};
+
+type IgenericResponse<T> = {
+  meta: {
+    page: number;
+    limit: number;
+    count: number;
+  };
+  data: T;
+};
+
+export const getAllAcademicSemesterService = async (
+  paginationOptions: IPaginationOption,
+): Promise<IgenericResponse<IAcademicSemester[]>> => {
+  const { page = 1, limit = 10 } = paginationOptions;
+  const skip = (page - 1) * limit;
+
+  const result = await academicSemester.find().sort().skip(skip).limit(limit);
+
+  const count = await academicSemester.countDocuments();
+
+  return {
+    meta: {
+      page,
+      limit,
+      count,
+    },
+    data: result,
+  };
 };

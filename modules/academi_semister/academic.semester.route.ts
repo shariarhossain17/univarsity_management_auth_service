@@ -11,4 +11,8 @@ semesterRoute.post(
   academicSemesterController.createAcademicSemester,
 );
 
+semesterRoute.get(
+  '/all-semester',
+  academicSemesterController.getAllAcademicSemester,
+);
 export default semesterRoute;
