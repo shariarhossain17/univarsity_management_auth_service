@@ -2,7 +2,10 @@ import { SortOrder } from 'mongoose';
 import ApiError from '../../errors/ApiError';
 import { paginationHelper } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
-import { IAcademicSemester } from './academic.semister.interface';
+import {
+  IAcademicSemester,
+  ISearchparams,
+} from './academic.semister.interface';
 import { academicSemester } from './academic.semister.model';
 import { validSemesterCode } from './academicsemester.constatnt';
 
@@ -27,8 +30,26 @@ type IgenericResponse<T> = {
 };
 
 export const getAllAcademicSemesterService = async (
+  filter: ISearchparams,
   paginationOptions: IPaginationOption,
 ): Promise<IgenericResponse<IAcademicSemester[]>> => {
+  const { searchParams } = filter;
+
+  const filterParams = ['title', 'code', 'year'];
+
+  const addCondition = [];
+
+  if (searchParams) {
+    addCondition.push({
+      $or: filterParams.map(params => ({
+        [params]: {
+          $regex: searchParams,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions);
 
@@ -38,7 +59,7 @@ export const getAllAcademicSemesterService = async (
     sortData[sortBy] = sortOrder;
   }
   const result = await academicSemester
-    .find()
+    .find({ $and: addCondition })
     .sort(sortData)
     .skip(skip)
     .limit(limit);
