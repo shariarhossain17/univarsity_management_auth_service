@@ -6,8 +6,10 @@ import pick from '../../utils/pick';
 import {
   createAcademicSemesterService,
   getAllAcademicSemesterService,
+  getSingleAcademicService,
 } from './academic.semester.service';
 import { IAcademicSemester } from './academic.semister.interface';
+import { filterKeys } from './academicsemester.constatnt';
 
 const createAcademicSemester = catchAsync(
   async (req: Request, res: Response) => {
@@ -24,7 +26,7 @@ const createAcademicSemester = catchAsync(
 
 const getAllAcademicSemester = catchAsync(
   async (req: Request, res: Response) => {
-    const filters = pick(req.query, ['searchParams']);
+    const filters = pick(req.query, filterKeys);
     const paginationOptions = pick(req.query, keys);
 
     const result = await getAllAcademicSemesterService(
@@ -41,7 +43,22 @@ const getAllAcademicSemester = catchAsync(
   },
 );
 
+const getSingleSemesterById = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const result = await getSingleAcademicService(id);
+
+    sendResponse<IAcademicSemester>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data retrive success!!',
+      result: result,
+    });
+  },
+);
+
 export default {
   createAcademicSemester,
   getAllAcademicSemester,
+  getSingleSemesterById,
 };

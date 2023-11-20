@@ -9,15 +9,15 @@ type IApiresponse<T> = {
     limit: number;
     count: number;
   };
-  result?: T;
+  result?: T | null;
 };
 const sendResponse = <T>(res: Response, data: IApiresponse<T>): void => {
   const responseData: IApiresponse<T> = {
     statusCode: data.statusCode,
     success: data.success,
-    message: data.message,
-    meta: data.meta,
-    result: data.result,
+    message: data.message || null,
+    meta: data.meta || null || undefined,
+    result: data.result || null,
   };
 
   res.status(data.statusCode).json(responseData);

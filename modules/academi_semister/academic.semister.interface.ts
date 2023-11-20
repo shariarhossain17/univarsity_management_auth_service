@@ -27,5 +27,5 @@ export type IAcademicSemester = {
 export type AcademicSemester = Model<IAcademicSemester>;
 
 export type ISearchparams = {
-  searchParams: string;
+  searchParams?: string;
 };

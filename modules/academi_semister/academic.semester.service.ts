@@ -7,7 +7,10 @@ import {
   ISearchparams,
 } from './academic.semister.interface';
 import { academicSemester } from './academic.semister.model';
-import { validSemesterCode } from './academicsemester.constatnt';
+import {
+  searchParamsFields,
+  validSemesterCode,
+} from './academicsemester.constatnt';
 
 export const createAcademicSemesterService = async (
   payLoad: IAcademicSemester,
@@ -33,19 +36,25 @@ export const getAllAcademicSemesterService = async (
   filter: ISearchparams,
   paginationOptions: IPaginationOption,
 ): Promise<IgenericResponse<IAcademicSemester[]>> => {
-  const { searchParams } = filter;
-
-  const filterParams = ['title', 'code', 'year'];
+  const { searchParams, ...filterData } = filter;
 
   const addCondition = [];
 
   if (searchParams) {
     addCondition.push({
-      $or: filterParams.map(params => ({
+      $or: searchParamsFields.map(params => ({
         [params]: {
           $regex: searchParams,
           $options: 'i',
         },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length) {
+    addCondition.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
       })),
     });
   }
@@ -58,8 +67,10 @@ export const getAllAcademicSemesterService = async (
   if (sortBy && sortOrder) {
     sortData[sortBy] = sortOrder;
   }
+
+  const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
   const result = await academicSemester
-    .find({ $and: addCondition })
+    .find(withConditions)
     .sort(sortData)
     .skip(skip)
     .limit(limit);
@@ -74,4 +85,11 @@ export const getAllAcademicSemesterService = async (
     },
     data: result,
   };
+};
+
+export const getSingleAcademicService = async (
+  id: string,
+): Promise<IAcademicSemester | null> => {
+  const result = await academicSemester.findById(id);
+  return result;
 };

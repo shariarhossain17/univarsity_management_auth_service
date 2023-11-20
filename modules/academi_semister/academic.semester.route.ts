@@ -15,4 +15,7 @@ semesterRoute.get(
   '/all-semester',
   academicSemesterController.getAllAcademicSemester,
 );
+
+semesterRoute.get('/:id', academicSemesterController.getSingleSemesterById);
+
 export default semesterRoute;

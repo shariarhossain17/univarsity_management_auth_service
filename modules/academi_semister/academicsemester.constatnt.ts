@@ -31,3 +31,7 @@ export const validSemesterCode: { [key: string]: string } = {
   Summer: '02',
   Fall: '03',
 };
+
+export const searchParamsFields = ['title', 'code', 'year'];
+
+export const filterKeys = ['searchParams', 'year', 'code', 'title'];
