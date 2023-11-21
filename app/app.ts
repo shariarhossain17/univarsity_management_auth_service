@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
-// app.get('/', (_: Request, _: Response, _: NextFunction) => {})
 
 app.use(globalErrorHandler);
 
