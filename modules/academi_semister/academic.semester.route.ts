@@ -11,6 +11,9 @@ semesterRoute.post(
   academicSemesterController.createAcademicSemester,
 );
 
+// update semester
+
+// get semester
 semesterRoute.get(
   '/all-semester',
   academicSemesterController.getAllAcademicSemester,

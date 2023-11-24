@@ -56,9 +56,21 @@ const getSingleSemesterById = catchAsync(
     });
   },
 );
+const updateSemester = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await getSingleAcademicService(id);
+
+  sendResponse<IAcademicSemester>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'data retrive success!!',
+    result: result,
+  });
+});
 
 export default {
   createAcademicSemester,
   getAllAcademicSemester,
   getSingleSemesterById,
+  updateSemester,
 };
