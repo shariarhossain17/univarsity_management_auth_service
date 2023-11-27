@@ -1,7 +1,10 @@
 import express from 'express';
 import zodValidate from '../../middleware/zodValidate';
 import academicSemesterController from './academic.semister.controller';
-import createAcademicSemesterZodSchema from './zod.academicsemester.schema';
+import {
+  createAcademicSemesterZodSchema,
+  updateAcademicSemesterZodSchema,
+} from './zod.academicsemester.schema';
 
 const semesterRoute = express.Router();
 
@@ -12,6 +15,12 @@ semesterRoute.post(
 );
 
 // update semester
+
+semesterRoute.patch(
+  '/:id',
+  zodValidate(updateAcademicSemesterZodSchema),
+  academicSemesterController.updateSemesterById,
+);
 
 // get semester
 semesterRoute.get(

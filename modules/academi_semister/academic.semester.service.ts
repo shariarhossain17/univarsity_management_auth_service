@@ -93,3 +93,21 @@ export const getSingleAcademicService = async (
   const result = await academicSemester.findById(id);
   return result;
 };
+
+export const updateAcademicSemesterService = async (
+  id: string,
+  payLoad: Partial<IAcademicSemester>,
+): Promise<IAcademicSemester | null> => {
+  if (
+    payLoad.code &&
+    payLoad.title &&
+    payLoad.code !== validSemesterCode[payLoad.title]
+  ) {
+    throw new ApiError(400, 'semester code invalid');
+  }
+  const result = await academicSemester.findOneAndUpdate({ _id: id }, payLoad, {
+    new: true,
+  });
+
+  return result;
+};

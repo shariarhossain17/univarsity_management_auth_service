@@ -7,6 +7,7 @@ import {
   createAcademicSemesterService,
   getAllAcademicSemesterService,
   getSingleAcademicService,
+  updateAcademicSemesterService,
 } from './academic.semester.service';
 import { IAcademicSemester } from './academic.semister.interface';
 import { filterKeys } from './academicsemester.constatnt';
@@ -56,14 +57,14 @@ const getSingleSemesterById = catchAsync(
     });
   },
 );
-const updateSemester = catchAsync(async (req: Request, res: Response) => {
+const updateSemesterById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await getSingleAcademicService(id);
+  const result = await updateAcademicSemesterService(id, req.body);
 
   sendResponse<IAcademicSemester>(res, {
     statusCode: 200,
     success: true,
-    message: 'data retrive success!!',
+    message: 'data updated successfully!!',
     result: result,
   });
 });
@@ -72,5 +73,5 @@ export default {
   createAcademicSemester,
   getAllAcademicSemester,
   getSingleSemesterById,
-  updateSemester,
+  updateSemesterById,
 };
