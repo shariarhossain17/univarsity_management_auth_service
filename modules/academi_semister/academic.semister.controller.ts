@@ -5,6 +5,7 @@ import sendResponse from '../../shared/sendResponse';
 import pick from '../../utils/pick';
 import {
   createAcademicSemesterService,
+  deleteSemesterByIdService,
   getAllAcademicSemesterService,
   getSingleAcademicService,
   updateAcademicSemesterService,
@@ -69,9 +70,21 @@ const updateSemesterById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteSemesterById = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await deleteSemesterByIdService(id);
+  sendResponse<IAcademicSemester>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'data deleted  successfully!!',
+    result: result,
+  });
+});
+
 export default {
   createAcademicSemester,
   getAllAcademicSemester,
   getSingleSemesterById,
   updateSemesterById,
+  deleteSemesterById,
 };

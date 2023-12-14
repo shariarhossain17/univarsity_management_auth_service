@@ -22,6 +22,9 @@ semesterRoute.patch(
   academicSemesterController.updateSemesterById,
 );
 
+//delete semester
+semesterRoute.delete('/:id', academicSemesterController.deleteSemesterById);
+
 // get semester
 semesterRoute.get(
   '/all-semester',

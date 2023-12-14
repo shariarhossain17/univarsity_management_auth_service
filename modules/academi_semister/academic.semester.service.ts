@@ -111,3 +111,10 @@ export const updateAcademicSemesterService = async (
 
   return result;
 };
+
+export const deleteSemesterByIdService = async (
+  id: string,
+): Promise<IAcademicSemester | null> => {
+  const result = academicSemester.findByIdAndDelete(id);
+  return result;
+};
