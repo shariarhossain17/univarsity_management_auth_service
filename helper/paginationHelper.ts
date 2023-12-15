@@ -32,6 +32,14 @@ const calculatePagination = (option: IOption): IPaginationResult => {
   };
 };
 
+export type IgenericResponse<T> = {
+  meta: {
+    page: number;
+    limit: number;
+    count: number;
+  };
+  data: T;
+};
 export const paginationHelper = {
   calculatePagination,
 };

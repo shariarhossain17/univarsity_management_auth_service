@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'; // Import ValidationError
-
+import mongoose from 'mongoose';
 import { genericError } from '../interface/errorInterFace';
 import IerrorResponse from '../interface/errorResponse';
 

@@ -1,6 +1,9 @@
 import { SortOrder } from 'mongoose';
 import ApiError from '../../errors/ApiError';
-import { paginationHelper } from '../../helper/paginationHelper';
+import {
+  IgenericResponse,
+  paginationHelper,
+} from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
 import {
   IAcademicSemester,
@@ -21,15 +24,6 @@ export const createAcademicSemesterService = async (
   const result = await academicSemester.create(payLoad);
 
   return result;
-};
-
-type IgenericResponse<T> = {
-  meta: {
-    page: number;
-    limit: number;
-    count: number;
-  };
-  data: T;
 };
 
 export const getAllAcademicSemesterService = async (

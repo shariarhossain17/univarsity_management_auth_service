@@ -11,4 +11,6 @@ facultyRouter.post(
   facultyController.createFaculty,
 );
 
+facultyRouter.get('/all-faculty', facultyController.getAllFaculty);
+
 export default facultyRouter;
