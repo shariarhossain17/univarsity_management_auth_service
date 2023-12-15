@@ -33,7 +33,38 @@ const getAllFaculty = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleFaculty = catchAsync(async (req: Request, res: Response) => {
+  const result = await facultyService.getSingleFaculty(req.params.id);
+  sendResponse<IAcademicFaculty>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'data retrieve successfully!!',
+    result: result,
+  });
+});
+const deleteFaculty = catchAsync(async (req: Request, res: Response) => {
+  const result = await facultyService.deleteFaculty(req.params.id);
+  sendResponse<IAcademicFaculty>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'faculty delete successfully!!',
+    result: result,
+  });
+});
+const updateFaculty = catchAsync(async (req: Request, res: Response) => {
+  const result = await facultyService.updateFaculty(req.params.id, req.body);
+  sendResponse<IAcademicFaculty>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'faculty updated successfully!!',
+    result: result,
+  });
+});
+
 export default {
   createFaculty,
   getAllFaculty,
+  getSingleFaculty,
+  deleteFaculty,
+  updateFaculty,
 };

@@ -68,7 +68,32 @@ const getAllFaculty = async (
   };
 };
 
+const getSingleFaculty = async (
+  id: string,
+): Promise<IAcademicFaculty | null> => {
+  const result = await faculty.findById(id);
+  return result;
+};
+
+const deleteFaculty = async (id: string): Promise<IAcademicFaculty | null> => {
+  const result = await faculty.findByIdAndDelete(id);
+  return result;
+};
+
+const updateFaculty = async (
+  id: string,
+  payLoad: IAcademicFaculty,
+): Promise<IAcademicFaculty | null> => {
+  const result = await faculty.findByIdAndUpdate(id, payLoad, {
+    new: true,
+  });
+  return result;
+};
+
 export default {
   createFaculty,
   getAllFaculty,
+  getSingleFaculty,
+  deleteFaculty,
+  updateFaculty,
 };
