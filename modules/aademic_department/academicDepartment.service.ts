@@ -13,7 +13,9 @@ import { departMentModel } from './academicDepartment.model';
 const createAcademicDepartment = async (
   payload: IAcademicDepartment,
 ): Promise<IAcademicDepartment> => {
-  const result = await departMentModel.create(payload);
+  const result = (await departMentModel.create(payload)).populate(
+    'academicFaculty',
+  );
   return result;
 };
 
@@ -58,6 +60,7 @@ const getAllAcademicDepartment = async (
   const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
   const result = await departMentModel
     .find(withConditions)
+    .populate('academicFaculty')
     .limit(limit)
     .skip(skip)
     .sort(sortData);
@@ -74,7 +77,34 @@ const getAllAcademicDepartment = async (
   };
 };
 
+const getSingleDepartment = async (
+  id: string,
+): Promise<IAcademicDepartment | null> => {
+  const result = await departMentModel.findById(id).populate('academicFaculty');
+  return result;
+};
+const deleteDepartmentById = async (
+  id: string,
+): Promise<IAcademicDepartment | null> => {
+  const result = await departMentModel.findByIdAndDelete(id);
+  return result;
+};
+const updateDepartmentById = async (
+  id: string,
+  payload: Partial<IAcademicDepartment>,
+): Promise<IAcademicDepartment | null> => {
+  const result = await departMentModel
+    .findByIdAndUpdate(id, payload, {
+      new: true,
+    })
+    .populate('academicFaculty');
+  return result;
+};
+
 export default {
   createAcademicDepartment,
   getAllAcademicDepartment,
+  getSingleDepartment,
+  deleteDepartmentById,
+  updateDepartmentById,
 };

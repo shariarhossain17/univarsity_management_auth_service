@@ -18,6 +18,6 @@ const academicFacultySchema = new Schema<
 );
 
 export const faculty = model<IAcademicFaculty, AcademicFacultyModel>(
-  'Faculty',
+  'faculty',
   academicFacultySchema,
 );

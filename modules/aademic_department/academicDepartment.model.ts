@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import {
   AcademicDepartmentModel,
   IAcademicDepartment,
@@ -15,8 +15,9 @@ const academicDepartMent = new Schema<
       unique: true,
     },
     academicFaculty: {
-      type: Types.ObjectId,
-      ref: 'Faculty',
+      type: Schema.Types.ObjectId,
+      ref: 'faculty',
+      required: true,
     },
   },
   {

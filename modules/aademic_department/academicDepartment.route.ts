@@ -15,5 +15,14 @@ departMentRoute.get(
   '/all-department',
   academicDepartmentController.getAllAcademicDepartment,
 );
+departMentRoute.get('/:id', academicDepartmentController.getSingleDepartment);
+departMentRoute.delete(
+  '/:id',
+  academicDepartmentController.deleteDepartmentById,
+);
+departMentRoute.patch(
+  '/:id',
+  academicDepartmentController.updateDepartmentById,
+);
 
 export default departMentRoute;
