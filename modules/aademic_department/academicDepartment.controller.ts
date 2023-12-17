@@ -4,6 +4,7 @@ import { IgenericResponse } from '../../helper/paginationHelper';
 import catchAsync from '../../shared/catchAsync';
 import sendResponse from '../../shared/sendResponse';
 import pick from '../../utils/pick';
+import { academicDepartmentFiltrableField } from './academicDepartment.constant';
 import { IAcademicDepartment } from './academicDepartment.interface';
 import academicDepartmentService from './academicDepartment.service';
 const createAcademicDepartment = catchAsync(
@@ -23,11 +24,12 @@ const createAcademicDepartment = catchAsync(
 
 const getAllAcademicDepartment = catchAsync(
   async (req: Request, res: Response) => {
+    const filterParams = pick(req.query, academicDepartmentFiltrableField);
     const paginationOptions = pick(req.query, keys);
-    const result =
-      await academicDepartmentService.getAllAcademicDepartment(
-        paginationOptions,
-      );
+    const result = await academicDepartmentService.getAllAcademicDepartment(
+      filterParams,
+      paginationOptions,
+    );
 
     sendResponse<IgenericResponse<IAcademicDepartment[]>>(res, {
       statusCode: 200,

@@ -4,7 +4,10 @@ import {
   paginationHelper,
 } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
-import { IAcademicDepartment } from './academicDepartment.interface';
+import {
+  IAcademicDepartment,
+  ISearchparams,
+} from './academicDepartment.interface';
 import { departMentModel } from './academicDepartment.model';
 
 const createAcademicDepartment = async (
@@ -15,8 +18,34 @@ const createAcademicDepartment = async (
 };
 
 const getAllAcademicDepartment = async (
+  filterField: ISearchparams,
   paginationOptions: IPaginationOption,
 ): Promise<IgenericResponse<IAcademicDepartment[]>> => {
+  const { searchParams, ...filterData } = filterField;
+
+  const addCondition = [];
+
+  if (searchParams) {
+    addCondition.push({
+      $or: [
+        {
+          title: {
+            $regex: searchParams,
+            $options: 'i',
+          },
+        },
+      ],
+    });
+  }
+
+  if (Object.keys(filterData).length) {
+    addCondition.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions);
 
@@ -25,8 +54,10 @@ const getAllAcademicDepartment = async (
   if (sortBy && sortOrder) {
     sortData[sortBy] = sortOrder;
   }
+
+  const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
   const result = await departMentModel
-    .find({})
+    .find(withConditions)
     .limit(limit)
     .skip(skip)
     .sort(sortData);

@@ -10,3 +10,7 @@ export type AcademicDepartmentModel = Model<
   IAcademicDepartment,
   Record<string, unknown>
 >;
+
+export type ISearchparams = {
+  searchParams?: string;
+};
