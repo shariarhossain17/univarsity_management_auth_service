@@ -11,4 +11,9 @@ departMentRoute.post(
   academicDepartmentController.createAcademicDepartment,
 );
 
+departMentRoute.get(
+  '/all-department',
+  academicDepartmentController.getAllAcademicDepartment,
+);
+
 export default departMentRoute;
