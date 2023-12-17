@@ -10,7 +10,14 @@ const departmentValidate = z.object({
     }),
   }),
 });
+const departmentUpdateValidate = z.object({
+  body: z.object({
+    title: z.string().optional(),
+    academicFaculty: z.string().optional(),
+  }),
+});
 
 export default {
   departmentValidate,
+  departmentUpdateValidate,
 };

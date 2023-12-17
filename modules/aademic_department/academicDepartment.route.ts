@@ -22,6 +22,7 @@ departMentRoute.delete(
 );
 departMentRoute.patch(
   '/:id',
+  zodValidate(academicDepartmentValidate.departmentUpdateValidate),
   academicDepartmentController.updateDepartmentById,
 );
 
