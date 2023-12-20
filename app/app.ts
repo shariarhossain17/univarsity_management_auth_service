@@ -2,6 +2,7 @@ import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import globalErrorHandler from '../middleware/globalErrorHandler';
 import routes from '../route/router';
+import { generateFacultyId } from '../utils/user.utils';
 const app: Application = express();
 
 app.use(cors());
@@ -25,5 +26,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   });
   next();
 });
+
+const testId = async () => {
+  const result = await generateFacultyId();
+  console.log(result);
+};
+
+testId();
 
 export default app;
