@@ -2,10 +2,10 @@ import { IAcademicSemester } from '../modules/academi_semister/academic.semister
 import { User } from '../modules/user/user.model';
 
 export const findStudentId = async (): Promise<string | undefined> => {
-  const lastStudent = await User.findOne({}, { id: 1, _id: 0 })
+  const lastStudent = await User.findOne({ role: 'student' }, { id: 1, _id: 0 })
     .sort({ createdAt: -1 })
     .lean();
-  return lastStudent?.id;
+  return lastStudent?.id ? lastStudent.id.substring(4) : undefined;
 };
 
 export const generateStudentId = async (
@@ -23,10 +23,10 @@ export const generateStudentId = async (
 };
 
 export const findFacultyId = async (): Promise<string | undefined> => {
-  const findFaculty = await User.findOne({}, { id: 1, _id: 0 })
+  const findFaculty = await User.findOne({ role: 'faculty' }, { id: 1, _id: 0 })
     .sort({ createdAt: -1 })
     .lean();
-  return findFaculty?.id;
+  return findFaculty?.id ? findFaculty.id.substring(2) : undefined;
 };
 
 export const generateFacultyId = async (): Promise<string> => {
