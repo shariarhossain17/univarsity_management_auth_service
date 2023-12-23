@@ -17,8 +17,25 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    student: {
+      type: Schema.Types.ObjectId,
+      ref: 'Student',
+    },
+    // Faculty: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Faculty',
+    // },
+    // Admin: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Admin',
+    // },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
+  },
 );
 
 export const User = model<IUser, UserModel>('User', userSchema);
