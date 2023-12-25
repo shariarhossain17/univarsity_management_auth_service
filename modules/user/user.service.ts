@@ -22,7 +22,7 @@ export const createStudent = async (
     student.academicSemester,
   );
 
-  const newUserData = null;
+  let newUserData = null;
   const session = await mongoose.startSession();
 
   try {
@@ -46,12 +46,31 @@ export const createStudent = async (
       throw new ApiError(400, 'Failed to create user');
     }
 
+    newUserData = newUser[0];
+
     session.commitTransaction();
     session.endSession();
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
     throw error;
+  }
+
+  if (newUserData) {
+    newUserData = await User.findById({ id: newUserData.id }).populate({
+      path: 'Student',
+      populate: [
+        {
+          path: 'academicSemester',
+        },
+        {
+          path: 'academicDepartment',
+        },
+        {
+          path: 'academicFaculty',
+        },
+      ],
+    });
   }
 
   return newUserData;
