@@ -15,10 +15,9 @@ export const generateStudentId = async (
 
   let newId = (parseInt(currentId) + 1).toString().padStart(5, '0');
 
-  const generateId = academicSemester
-    ? `${academicSemester.year.substring(2)}${academicSemester.code}${newId}`
-    : '';
-  newId = generateId;
+  newId = `${academicSemester.year.substring(2)}${
+    academicSemester.code
+  }${newId}`;
 
   return newId;
 };

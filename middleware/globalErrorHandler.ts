@@ -16,9 +16,11 @@ const globalErrorHandler: ErrorRequestHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   next: NextFunction,
 ) => {
+  // eslint-disable-next-line no-unused-expressions
   // config.env === 'development'
   //   ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-  //   : errorlogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
+  //   : // eslint-disable-next-line no-undef
+  //     errorlogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
 
   let statusCode = 500;
   let message = 'Something went wrong !';

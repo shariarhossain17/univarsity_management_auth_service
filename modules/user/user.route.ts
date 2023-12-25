@@ -9,7 +9,7 @@ const userRoutes = express.Router();
 userRoutes.post(
   '/create-user',
   zodValidate(createUserZodSchema),
-  userController.createUser,
+  userController.createStudent,
 );
 
 export default userRoutes;

@@ -1,8 +1,10 @@
+import mongoose from 'mongoose';
 import config from '../../config/index';
 import ApiError from '../../errors/ApiError';
 import { generateStudentId } from '../../utils/user.utils';
 import { academicSemester } from '../academi_semister/academic.semister.model';
 import { IStudent } from '../student/student.interface';
+import { Student } from '../student/student.model';
 import { IUser } from './user.interface';
 import { User } from './user.model';
 
@@ -20,14 +22,39 @@ export const createStudent = async (
     student.academicSemester,
   );
 
-  const id = await generateStudentId(academicSemesterById);
+  const newUserData = null;
+  const session = await mongoose.startSession();
 
-  userData.id = id;
-  const user = await User.create(userData);
-  if (!user) {
-    throw new ApiError(400, 'Failed to create user');
+  try {
+    session.startTransaction();
+    const id = await generateStudentId(academicSemesterById);
+
+    userData.id = id;
+    student.id = id;
+
+    const newStudent = await Student.create([student], { session });
+
+    if (!newStudent.length) {
+      throw new ApiError(400, 'Failed to create student');
+    }
+
+    userData.student = newStudent[0]._id;
+
+    const newUser = await User.create([userData], { session });
+
+    if (!newUser.length) {
+      throw new ApiError(400, 'Failed to create user');
+    }
+
+    session.commitTransaction();
+    session.endSession();
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw error;
   }
-  return user;
+
+  return newUserData;
 };
 
 export default {
