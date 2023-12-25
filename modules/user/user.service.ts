@@ -17,10 +17,9 @@ export const createStudent = async (
   }
 
   userData.role = 'student';
-
-  const academicSemesterById = await academicSemester.findById(
-    student.academicSemester,
-  );
+  const academicSemesterById = await academicSemester
+    .findById(student.academicSemester)
+    .lean();
 
   let newUserData = null;
   const session = await mongoose.startSession();
@@ -48,8 +47,8 @@ export const createStudent = async (
 
     newUserData = newUser[0];
 
-    session.commitTransaction();
-    session.endSession();
+    await session.commitTransaction();
+    await session.endSession();
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
@@ -57,8 +56,8 @@ export const createStudent = async (
   }
 
   if (newUserData) {
-    newUserData = await User.findById({ id: newUserData.id }).populate({
-      path: 'Student',
+    newUserData = await User.findOne({ id: newUserData.id }).populate({
+      path: 'student',
       populate: [
         {
           path: 'academicSemester',

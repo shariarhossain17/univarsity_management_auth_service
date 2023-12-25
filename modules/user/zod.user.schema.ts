@@ -29,10 +29,10 @@ const createUserZodSchema = z.object({
       dateOfBirth: z.string({
         required_error: 'Date of birth is required',
       }),
-      contactNumber: z.string({
+      contactNo: z.string({
         required_error: 'Contact number is required',
       }),
-      emergencyContactNumber: z.string({
+      emergencyContactNo: z.string({
         required_error: 'Emergency contact number is required',
       }),
       presentAddress: z.string({
