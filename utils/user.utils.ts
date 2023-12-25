@@ -9,15 +9,16 @@ export const findStudentId = async (): Promise<string | undefined> => {
 };
 
 export const generateStudentId = async (
-  academicSemester: IAcademicSemester,
+  academicSemester: IAcademicSemester | null,
 ): Promise<string> => {
   const currentId = (await findStudentId()) || (0).toString().padStart(5, '0');
 
   let newId = (parseInt(currentId) + 1).toString().padStart(5, '0');
 
-  newId = `${academicSemester.year.substring(2)}${
-    academicSemester.code
-  }${newId}`;
+  const generateId = academicSemester
+    ? `${academicSemester.year.substring(2)}${academicSemester.code}${newId}`
+    : '';
+  newId = generateId;
 
   return newId;
 };
