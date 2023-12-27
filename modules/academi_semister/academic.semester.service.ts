@@ -55,7 +55,6 @@ export const getAllAcademicSemesterService = async (
 
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions);
-
   const sortData: { [key: string]: SortOrder } = {};
 
   if (sortBy && sortOrder) {
