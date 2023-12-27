@@ -38,8 +38,20 @@ const getSingleStudent: RequestHandler = catchAsync(
     });
   },
 );
+const deleteStudent: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await studentServices.deleteStudent(req.params.id);
+    sendResponse<IStudent>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data deleted successfully!!',
+      result: result,
+    });
+  },
+);
 
 export default {
   getAllStudent,
   getSingleStudent,
+  deleteStudent,
 };

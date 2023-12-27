@@ -44,6 +44,9 @@ const getAllStudent = async (
   const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
 
   const result = await Student.find(withConditions)
+    .populate('academicSemester')
+    .populate('academicDepartment')
+    .populate('academicFaculty')
     .sort(sortData)
     .skip(skip)
     .limit(limit);
@@ -61,11 +64,15 @@ const getAllStudent = async (
 };
 
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
-  const result = await Student.findById(id);
+  const result = await Student.findById(id)
+    .populate('academicSemester')
+    .populate('academicDepartment')
+    .populate('academicFaculty');
   return result;
 };
 const deleteStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findByIdAndDelete(id);
+
   return result;
 };
 
