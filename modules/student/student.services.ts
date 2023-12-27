@@ -60,6 +60,17 @@ const getAllStudent = async (
   };
 };
 
+const getSingleStudent = async (id: string): Promise<IStudent | null> => {
+  const result = await Student.findById(id);
+  return result;
+};
+const deleteStudent = async (id: string): Promise<IStudent | null> => {
+  const result = await Student.findByIdAndDelete(id);
+  return result;
+};
+
 export default {
   getAllStudent,
+  getSingleStudent,
+  deleteStudent,
 };

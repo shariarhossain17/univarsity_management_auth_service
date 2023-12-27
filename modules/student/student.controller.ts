@@ -27,6 +27,19 @@ const getAllStudent: RequestHandler = catchAsync(
   },
 );
 
+const getSingleStudent: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await studentServices.getSingleStudent(req.params.id);
+    sendResponse<IStudent>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data retrive success!!',
+      result: result,
+    });
+  },
+);
+
 export default {
   getAllStudent,
+  getSingleStudent,
 };
