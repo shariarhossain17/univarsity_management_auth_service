@@ -49,9 +49,21 @@ const deleteStudent: RequestHandler = catchAsync(
     });
   },
 );
+const updateStudent: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await studentServices.updateStudent(req.params.id, req.body);
+    sendResponse<IStudent>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data deleted successfully!!',
+      result: result,
+    });
+  },
+);
 
 export default {
   getAllStudent,
   getSingleStudent,
   deleteStudent,
+  updateStudent,
 };

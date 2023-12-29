@@ -3,6 +3,7 @@ import { ISearchParams, IStudent } from './student.interface';
 import { Student } from './student.model';
 
 import { SortOrder } from 'mongoose';
+import ApiError from '../../errors/ApiError';
 import {
   IgenericResponse,
   paginationHelper,
@@ -76,8 +77,55 @@ const deleteStudent = async (id: string): Promise<IStudent | null> => {
   return result;
 };
 
+const updateStudent = async (
+  id: string,
+  payload: Partial<IStudent>,
+): Promise<IStudent | null> => {
+  console.log(payload);
+  const isExist = await Student.findOne({ id });
+
+  if (!isExist) {
+    throw new ApiError(404, "user doese't exist");
+  }
+
+  const { name, guardian, localGuardian, ...studentData } = payload;
+
+  const updateStudentData: Partial<IStudent> = { ...studentData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (updateStudentData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+  if (guardian && Object.keys(guardian).length > 0) {
+    Object.keys(guardian).forEach(key => {
+      const guardianKey = `guardian.${key}`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (updateStudentData as any)[guardianKey] =
+        guardian[key as keyof typeof guardian];
+    });
+  }
+  if (localGuardian && Object.keys(localGuardian).length > 0) {
+    Object.keys(localGuardian).forEach(key => {
+      const localGuardianKey = `localGuardian.${key}`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (updateStudentData as any)[localGuardianKey] =
+        localGuardian[key as keyof typeof localGuardian];
+    });
+  }
+
+  const result = await Student.findOneAndUpdate({ id }, updateStudentData, {
+    new: true,
+  });
+
+  return result;
+};
+
 export default {
   getAllStudent,
   getSingleStudent,
   deleteStudent,
+  updateStudent,
 };
