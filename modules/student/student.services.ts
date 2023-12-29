@@ -81,7 +81,6 @@ const updateStudent = async (
   id: string,
   payload: Partial<IStudent>,
 ): Promise<IStudent | null> => {
-  console.log(payload);
   const isExist = await Student.findOne({ id });
 
   if (!isExist) {
