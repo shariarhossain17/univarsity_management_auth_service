@@ -1,12 +1,14 @@
 import mongoose from 'mongoose';
 import config from '../../config/index';
 import ApiError from '../../errors/ApiError';
-import { generateStudentId } from '../../utils/user.utils';
+import { IAcademicSemester } from '../academi_semister/academic.semister.interface';
 import { academicSemester } from '../academi_semister/academic.semister.model';
+import { IAdmin } from '../admin/admin.interface';
 import { IStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { IUser } from './user.interface';
 import { User } from './user.model';
+import { generateStudentId } from './user.utils';
 
 export const createStudent = async (
   student: IStudent,
@@ -26,7 +28,9 @@ export const createStudent = async (
 
   try {
     session.startTransaction();
-    const id = await generateStudentId(academicSemesterById);
+    const id = await generateStudentId(
+      academicSemesterById as IAcademicSemester,
+    );
 
     userData.id = id;
     student.id = id;
@@ -74,7 +78,23 @@ export const createStudent = async (
 
   return newUserData;
 };
+export const createAdmin = async (admin: IAdmin, userData: IUser) => {
+  if (!userData.password) {
+    userData.password = config.admin_default_password as string;
+  }
 
+  userData.role = 'admin';
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw error;
+  }
+};
 export default {
   createStudent,
 };

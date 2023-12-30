@@ -45,9 +45,6 @@ const getAllAdmin = async (
   const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
 
   const result = await Admin.find(withConditions)
-    .populate('academicSemester')
-    .populate('academicDepartment')
-    .populate('academicFaculty')
     .sort(sortData)
     .skip(skip)
     .limit(limit);
