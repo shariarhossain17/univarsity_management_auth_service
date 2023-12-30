@@ -9,6 +9,15 @@ const createManagementDepartment = async (
   return result;
 };
 
+const getAllManagementDepartment = async (): Promise<
+  IManagementDepartment[]
+> => {
+  const result = await ManagementDepartment.find();
+
+  return result;
+};
+
 export default {
   createManagementDepartment,
+  getAllManagementDepartment,
 };

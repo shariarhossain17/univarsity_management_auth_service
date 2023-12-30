@@ -7,7 +7,17 @@ const managementDepartmentSchema = z.object({
     }),
   }),
 });
+const updateManagementDepartmentSchema = z.object({
+  body: z.object({
+    title: z
+      .string({
+        required_error: 'title is required',
+      })
+      .optional(),
+  }),
+});
 
 export default {
   managementDepartmentSchema,
+  updateManagementDepartmentSchema,
 };

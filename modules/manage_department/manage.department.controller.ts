@@ -18,7 +18,20 @@ const createManagementDepartment = catchAsync(
     });
   },
 );
+const getAllManagementDepartment = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await manageDepartmentServices.getAllManagementDepartment();
+
+    sendResponse<IManagementDepartment[]>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data retrieved success!!',
+      result: result,
+    });
+  },
+);
 
 export default {
   createManagementDepartment,
+  getAllManagementDepartment,
 };

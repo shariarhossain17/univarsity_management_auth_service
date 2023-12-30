@@ -11,4 +11,9 @@ mangeDepartmentRoute.post(
   manageDepartmentController.createManagementDepartment,
 );
 
+mangeDepartmentRoute.get(
+  '/all-managementDepartment',
+  manageDepartmentController.getAllManagementDepartment,
+);
+
 export default mangeDepartmentRoute;
