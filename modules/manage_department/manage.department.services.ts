@@ -70,7 +70,36 @@ const getAllManagementDepartment = async (
   };
 };
 
+const getSingleManagementDepartment = async (
+  id: string,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findById(id);
+  return result;
+};
+const deleteManagementDepartment = async (
+  id: string,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findByIdAndDelete(id);
+  return result;
+};
+const updateManagementDepartment = async (
+  id: string,
+  payload: Partial<IManagementDepartment>,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findByIdAndUpdate(
+    id,
+    { payload },
+    {
+      new: true,
+    },
+  );
+  return result;
+};
+
 export default {
   createManagementDepartment,
   getAllManagementDepartment,
+  getSingleManagementDepartment,
+  deleteManagementDepartment,
+  updateManagementDepartment,
 };
