@@ -8,4 +8,6 @@ const managementDepartmentSchema = z.object({
   }),
 });
 
-export default managementDepartmentSchema;
+export default {
+  managementDepartmentSchema,
+};
