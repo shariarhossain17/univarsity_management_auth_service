@@ -4,6 +4,8 @@ import {
   paginationHelper,
 } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
+import { ISearchParams } from '../admin/admin.interface';
+import { searchParamsFields } from './manage.department.costant';
 import { IManagementDepartment } from './manage.department.interface';
 import { ManagementDepartment } from './management.department.model';
 
@@ -16,8 +18,30 @@ const createManagementDepartment = async (
 };
 
 const getAllManagementDepartment = async (
+  filter: ISearchParams,
   paginationOptions: IPaginationOption,
 ): Promise<IgenericResponse<IManagementDepartment[]>> => {
+  const { searchParams, ...filterData } = filter;
+
+  const addCondition = [];
+  if (searchParams) {
+    addCondition.push({
+      $or: searchParamsFields.map(params => ({
+        [params]: {
+          $regex: searchParams,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length) {
+    addCondition.push({
+      $and: Object.entries(filterData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions);
 
@@ -26,12 +50,15 @@ const getAllManagementDepartment = async (
   if (sortBy && sortOrder) {
     sortData[sortBy] = sortOrder;
   }
-  const result = await ManagementDepartment.find()
+
+  const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
+  const result = await ManagementDepartment.find(withConditions)
     .sort(sortData)
     .skip(skip)
     .limit(limit);
 
-  const count = await ManagementDepartment.find().countDocuments();
+  const count =
+    await ManagementDepartment.find(withConditions).countDocuments();
 
   return {
     meta: {

@@ -3,6 +3,7 @@ import { keys } from '../../constants/paginationContstants';
 import catchAsync from '../../shared/catchAsync';
 import sendResponse from '../../shared/sendResponse';
 import pick from '../../utils/pick';
+import { filterKeys } from './manage.department.costant';
 import { IManagementDepartment } from './manage.department.interface';
 import manageDepartmentServices from './manage.department.services';
 
@@ -23,10 +24,11 @@ const createManagementDepartment = catchAsync(
 const getAllManagementDepartment = catchAsync(
   async (req: Request, res: Response) => {
     const paginationOptions = pick(req.query, keys);
-    const result =
-      await manageDepartmentServices.getAllManagementDepartment(
-        paginationOptions,
-      );
+    const filters = pick(req.query, filterKeys);
+    const result = await manageDepartmentServices.getAllManagementDepartment(
+      filters,
+      paginationOptions,
+    );
 
     sendResponse<IManagementDepartment[]>(res, {
       statusCode: 200,

@@ -7,3 +7,7 @@ export type ManagementDepartmentModel = Model<
   IManagementDepartment,
   Record<string, unknown>
 >;
+
+export type ISearchparams = {
+  searchParams?: string;
+};
