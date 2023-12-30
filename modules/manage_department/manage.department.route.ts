@@ -15,5 +15,17 @@ mangeDepartmentRoute.get(
   '/all-managementDepartment',
   manageDepartmentController.getAllManagementDepartment,
 );
+mangeDepartmentRoute.get(
+  '/:id',
+  manageDepartmentController.getSingleManagementDepartment,
+);
+mangeDepartmentRoute.patch(
+  '/:id',
+  manageDepartmentController.updateManagementDepartment,
+);
+mangeDepartmentRoute.patch(
+  '/:id',
+  manageDepartmentController.deleteManagementDepartment,
+);
 
 export default mangeDepartmentRoute;
