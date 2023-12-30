@@ -3,6 +3,7 @@ import semesterRoute from '../modules/academi_semister/academic.semester.route';
 import facultyRoute from '../modules/academic_facualty/academic.faculty.route';
 import departMentRoute from '../modules/ademic_department/academicDepartment.route';
 import adminRoute from '../modules/admin/admin.route';
+import mangeDepartmentRoute from '../modules/manage_department/manage.department.route';
 import studentRoute from '../modules/student/student.route';
 import userRoutes from '../modules/user/user.route';
 
@@ -32,6 +33,10 @@ const moduleRouter = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/management-department',
+    route: mangeDepartmentRoute,
   },
 ];
 

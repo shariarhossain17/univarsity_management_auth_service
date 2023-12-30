@@ -126,6 +126,8 @@ export const createAdmin = async (
 
   return newUserData;
 };
+
 export default {
   createStudent,
+  createAdmin,
 };
