@@ -4,11 +4,12 @@ import ApiError from '../../errors/ApiError';
 import { IAcademicSemester } from '../academi_semister/academic.semister.interface';
 import { academicSemester } from '../academi_semister/academic.semister.model';
 import { IAdmin } from '../admin/admin.interface';
+import { Admin } from '../admin/admin.model';
 import { IStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { IUser } from './user.interface';
 import { User } from './user.model';
-import { generateStudentId } from './user.utils';
+import { generateAdminId, generateStudentId } from './user.utils';
 
 export const createStudent = async (
   student: IStudent,
@@ -78,22 +79,52 @@ export const createStudent = async (
 
   return newUserData;
 };
-export const createAdmin = async (admin: IAdmin, userData: IUser) => {
+export const createAdmin = async (
+  adminData: IAdmin,
+  userData: IUser,
+): Promise<IUser | null> => {
   if (!userData.password) {
     userData.password = config.admin_default_password as string;
   }
 
   userData.role = 'admin';
 
+  let newUserData = null;
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
+
+    const id = await generateAdminId();
+
+    adminData.id = id;
+    userData.id = id;
+
+    const newAdmin = await Admin.create([adminData], { session });
+
+    if (!newAdmin.length) {
+      throw new ApiError(400, 'Failed to create admin ');
+    }
+
+    userData.admin = newAdmin[0]._id;
+
+    const newUser = await User.create([userData], { session });
+
+    if (!newAdmin.length) {
+      throw new ApiError(400, 'Failed to create User ');
+    }
+
+    newUserData = newUser[0];
+
+    await session.commitTransaction();
+    await session.endSession();
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
     throw error;
   }
+
+  return newUserData;
 };
 export default {
   createStudent,

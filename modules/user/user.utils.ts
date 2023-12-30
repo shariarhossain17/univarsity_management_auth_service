@@ -46,6 +46,7 @@ export const findAdminId = async (): Promise<string | undefined> => {
 
 export const generateAdminId = async (): Promise<string> => {
   const currentId = (await findAdminId()) || (0).toString().padStart(5, '0');
+
   let newId = (parseInt(currentId) + 1).toString().padStart(5, '0');
 
   newId = `A-${newId}`;
