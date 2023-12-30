@@ -39,8 +39,54 @@ const getAllManagementDepartment = catchAsync(
     });
   },
 );
+const getSingleManagementDepartment = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await manageDepartmentServices.getSingleManagementDepartment(
+      req.params.id,
+    );
+
+    sendResponse<IManagementDepartment>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'data retrieved success!!',
+      result: result,
+    });
+  },
+);
+const deleteManagementDepartment = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await manageDepartmentServices.deleteManagementDepartment(
+      req.params.id,
+    );
+
+    sendResponse<IManagementDepartment>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'management department delete success!!',
+      result: result,
+    });
+  },
+);
+const updateManagementDepartment = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await manageDepartmentServices.updateManagementDepartment(
+      req.params.id,
+      req.body,
+    );
+
+    sendResponse<IManagementDepartment>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'management department delete success!!',
+      result: result,
+    });
+  },
+);
 
 export default {
   createManagementDepartment,
   getAllManagementDepartment,
+  getSingleManagementDepartment,
+  deleteManagementDepartment,
+  updateManagementDepartment,
 };
