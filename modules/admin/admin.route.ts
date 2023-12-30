@@ -6,7 +6,7 @@ import zodValidate from '../../middleware/zodValidate';
 import adminController from './admin.controller';
 import createAdminZodSchema from './admin.validate';
 
-adminRoute.get('/all-student', adminController.getAllAdmin);
+adminRoute.get('/all-admin', adminController.getAllAdmin);
 adminRoute.get('/:id', adminController.getSingleAdmin);
 
 adminRoute.patch(
