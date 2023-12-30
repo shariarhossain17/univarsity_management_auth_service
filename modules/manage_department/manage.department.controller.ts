@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { keys } from '../../constants/paginationContstants';
 import catchAsync from '../../shared/catchAsync';
 import sendResponse from '../../shared/sendResponse';
+import pick from '../../utils/pick';
 import { IManagementDepartment } from './manage.department.interface';
 import manageDepartmentServices from './manage.department.services';
 
@@ -20,13 +22,18 @@ const createManagementDepartment = catchAsync(
 );
 const getAllManagementDepartment = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await manageDepartmentServices.getAllManagementDepartment();
+    const paginationOptions = pick(req.query, keys);
+    const result =
+      await manageDepartmentServices.getAllManagementDepartment(
+        paginationOptions,
+      );
 
     sendResponse<IManagementDepartment[]>(res, {
       statusCode: 200,
       success: true,
       message: 'data retrieved success!!',
-      result: result,
+      meta: result.meta,
+      result: result.data,
     });
   },
 );
