@@ -77,7 +77,7 @@ const updateManagementDepartment = catchAsync(
     sendResponse<IManagementDepartment>(res, {
       statusCode: 200,
       success: true,
-      message: 'management department delete success!!',
+      message: 'management department update success!!',
       result: result,
     });
   },

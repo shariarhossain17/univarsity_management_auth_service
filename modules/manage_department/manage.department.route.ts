@@ -21,9 +21,10 @@ mangeDepartmentRoute.get(
 );
 mangeDepartmentRoute.patch(
   '/:id',
+  zodValidate(manageDepartmentValidate.updateManagementDepartmentSchema),
   manageDepartmentController.updateManagementDepartment,
 );
-mangeDepartmentRoute.patch(
+mangeDepartmentRoute.delete(
   '/:id',
   manageDepartmentController.deleteManagementDepartment,
 );

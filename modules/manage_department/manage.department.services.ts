@@ -87,8 +87,8 @@ const updateManagementDepartment = async (
   payload: Partial<IManagementDepartment>,
 ): Promise<IManagementDepartment | null> => {
   const result = await ManagementDepartment.findByIdAndUpdate(
-    id,
-    { payload },
+    { _id: id },
+    payload,
     {
       new: true,
     },
