@@ -54,9 +54,9 @@ export const adminSchema = new Schema<IAdmin, AdminModel>(
       type: String,
       enum: bloodGroup,
     },
-    manageDepartment: {
+    managementDepartment: {
       type: Schema.Types.ObjectId,
-      ref: 'manageDepartment',
+      ref: 'ManagementDepartment',
     },
     profileImage: {
       type: String,

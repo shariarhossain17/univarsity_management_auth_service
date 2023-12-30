@@ -18,7 +18,7 @@ export type IAdmin = {
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   presentAddress: string;
   permanentAddress: string;
-  manageDepartment: Types.ObjectId | IAcademicFaculty;
+  managementDepartment: Types.ObjectId | IAcademicFaculty;
   profileImage?: string;
 };
 

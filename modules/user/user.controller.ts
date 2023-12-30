@@ -15,7 +15,20 @@ const createStudent: RequestHandler = catchAsync(
     });
   },
 );
+const createAdmin: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { admin, ...userData } = req.body;
+    const user = await userService.createAdmin(admin, userData);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'user data crate successfully!!',
+      result: user,
+    });
+  },
+);
 
 export default {
   createStudent,
+  createAdmin,
 };

@@ -21,13 +21,13 @@ const userSchema = new Schema<IUser, UserModel>(
       type: Schema.Types.ObjectId,
       ref: 'Student',
     },
+    admin: {
+      type: Schema.Types.ObjectId,
+      ref: 'Admin',
+    },
     // Faculty: {
     //   type: Schema.Types.ObjectId,
     //   ref: 'Faculty',
-    // },
-    // Admin: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Admin',
     // },
   },
   {

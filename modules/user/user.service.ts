@@ -124,6 +124,17 @@ export const createAdmin = async (
     throw error;
   }
 
+  if (newUserData) {
+    newUserData = await User.findOne({ id: newUserData.id }).populate({
+      path: 'admin',
+      populate: [
+        {
+          path: 'managementDepartment',
+        },
+      ],
+    });
+  }
+
   return newUserData;
 };
 

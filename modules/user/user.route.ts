@@ -7,9 +7,14 @@ import createUserZodSchema from './zod.user.schema';
 const userRoutes = express.Router();
 
 userRoutes.post(
-  '/create-user',
+  '/create-student',
   zodValidate(createUserZodSchema),
   userController.createStudent,
+);
+userRoutes.post(
+  '/create-admin',
+  zodValidate(createUserZodSchema),
+  userController.createAdmin,
 );
 
 export default userRoutes;
