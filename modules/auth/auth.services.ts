@@ -66,7 +66,8 @@ const refreshToken = async (token: string): Promise<IRefreshToken> => {
 
   // checking delete user refresh tokem
 
-  const { userId, role } = verifiedToken;
+  const { userId } = verifiedToken;
+  const { userId } = verifiedToken;
 
   const user = new User();
 
@@ -79,8 +80,8 @@ const refreshToken = async (token: string): Promise<IRefreshToken> => {
   // create refresh token
   const newAccessToken = jwtHelper.createToken(
     {
-      userId,
-      role,
+      userId: isUserExist.id,
+      role: isUserExist.role,
     },
     config.jwt.jwt_refresh_secret as Secret,
     config.jwt.jwt_refresh_expires_in as string,
