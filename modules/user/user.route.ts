@@ -14,7 +14,7 @@ userRoutes.post(
 userRoutes.post(
   '/create-faculty',
   zodValidate(createUserZodSchema),
-  userController.createAdmin,
+  userController.createFaculty,
 );
 userRoutes.post(
   '/create-admin',
