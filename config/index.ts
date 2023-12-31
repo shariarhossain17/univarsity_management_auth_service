@@ -9,6 +9,7 @@ export default {
   student_default_password: process.env.STUDENT_DEFAULT_PASSWORD,
   admin_default_password: process.env.ADMIN_DEFAULT_PASSWORD,
   faculty_default_password: process.env.FACULTY_DEFAULT_PASSWORD,
+  saltRounds: process.env.BCRYPT_SALT,
   mongo_DB_userName: process.env.MONGO_DB_USERNAME,
   mongo_DB_password: process.env.MONGO_DB_PASS,
 };

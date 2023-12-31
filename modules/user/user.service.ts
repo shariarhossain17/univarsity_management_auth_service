@@ -17,6 +17,8 @@ import {
   generateStudentId,
 } from './user.utils';
 
+import bcrypt from 'bcrypt';
+
 export const createStudent = async (
   student: IStudent,
   userData: IUser,
@@ -24,6 +26,11 @@ export const createStudent = async (
   if (!userData.password) {
     userData.password = config.student_default_password as string;
   }
+
+  userData.password = await bcrypt.hash(
+    userData.password,
+    Number(config.saltRounds),
+  );
 
   userData.role = 'student';
   const academicSemesterById = await academicSemester
