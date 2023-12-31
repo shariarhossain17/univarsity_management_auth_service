@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { bloodGroup, gender } from './faculty.constant';
 import { FacultyModel, IFaculty } from './faculty.interface';
 
-export const studentSchema = new Schema<IFaculty, FacultyModel>(
+export const facultySchema = new Schema<IFaculty, FacultyModel>(
   {
     id: {
       type: String,
@@ -75,4 +75,4 @@ export const studentSchema = new Schema<IFaculty, FacultyModel>(
   },
 );
 
-export const Faculty = model<IFaculty, FacultyModel>('Faculty', studentSchema);
+export const Faculty = model<IFaculty, FacultyModel>('Faculty', facultySchema);
