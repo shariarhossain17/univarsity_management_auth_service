@@ -26,6 +26,7 @@ export const facultySchema = new Schema<IFaculty, FacultyModel>(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     gender: {
       type: String,
@@ -37,6 +38,7 @@ export const facultySchema = new Schema<IFaculty, FacultyModel>(
     contactNo: {
       type: String,
       required: true,
+      unique: true,
     },
     emergencyContactNo: {
       type: String,
@@ -64,7 +66,7 @@ export const facultySchema = new Schema<IFaculty, FacultyModel>(
     },
     academicFaculty: {
       type: Schema.Types.ObjectId,
-      ref: 'faculty',
+      ref: 'AcademicFaculty',
     },
     profileImage: {
       type: String,

@@ -26,6 +26,7 @@ export const studentSchema = new Schema<IStudent, StudentModel>(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     gender: {
       type: String,
@@ -37,6 +38,7 @@ export const studentSchema = new Schema<IStudent, StudentModel>(
     contactNo: {
       type: String,
       required: true,
+      unique: true,
     },
     emergencyContactNo: {
       type: String,

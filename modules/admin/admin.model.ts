@@ -26,6 +26,7 @@ export const adminSchema = new Schema<IAdmin, AdminModel>(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     gender: {
       type: String,
@@ -37,6 +38,7 @@ export const adminSchema = new Schema<IAdmin, AdminModel>(
     contactNo: {
       type: String,
       required: true,
+      unique: true,
     },
     emergencyContactNo: {
       type: String,
