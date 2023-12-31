@@ -4,7 +4,7 @@ import { jwtHelper } from '../../helper/jwtHelper';
 import { User } from '../user/user.model';
 import { ILoginResponse, ILoginUser } from './auth.interface';
 
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginResponse> => {
   const { id, password } = payload;
@@ -53,6 +53,33 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginResponse> => {
   };
 };
 
+const refreshToken = async (token: string) => {
+  let verifiedToken: JwtPayload;
+  try {
+    verifiedToken = jwtHelper.verifyToken(
+      token,
+      config.jwt.jwt_refresh_secret as Secret,
+    );
+  } catch (err) {
+    throw new ApiError(403, 'invalid refresh token');
+  }
+
+  // checking delete user refresh tokem
+
+  const { userId } = verifiedToken;
+
+  const user = new User();
+
+  const isUserExist = await user.isUserExist(userId);
+
+  if (!isUserExist) {
+    throw new ApiError(404, 'user does not exist');
+  }
+
+  // create refresh token
+};
+
 export default {
   loginUser,
+  refreshToken,
 };

@@ -55,6 +55,7 @@ userSchema.methods.isUserExist = async function (
       id: 1,
       password: 1,
       needPasswordChange: 1,
+      role: 1,
     },
   );
 };

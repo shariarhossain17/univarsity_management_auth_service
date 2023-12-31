@@ -8,7 +8,12 @@ const authRoute = express.Router();
 authRoute.post(
   '/login',
   zodValidate(authValidation.authZodSchema),
-  authController.LoginUser,
+  authController.loginUser,
+);
+authRoute.post(
+  '/refresh-token',
+  zodValidate(authValidation.refreshZodSchema),
+  authController.refreshToken,
 );
 
 export default authRoute;
