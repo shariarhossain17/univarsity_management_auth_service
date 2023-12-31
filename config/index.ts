@@ -12,4 +12,10 @@ export default {
   saltRounds: process.env.BCRYPT_SALT,
   mongo_DB_userName: process.env.MONGO_DB_USERNAME,
   mongo_DB_password: process.env.MONGO_DB_PASS,
+  jwt: {
+    jwt_secret: process.env.JWT_SECRET,
+    jwt_expires_in: process.env.JWT_EXPIRES_IN,
+    jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
+    jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
+  },
 };
