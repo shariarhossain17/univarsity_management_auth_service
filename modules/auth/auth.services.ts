@@ -114,7 +114,7 @@ const changePassword = async (
 
   if (
     isExist?.password &&
-    !user.isPasswordMatched(oldPassword, isExist?.password)
+    !databaseUser.isPasswordMatched(oldPassword, isExist?.password)
   ) {
     throw new ApiError(401, 'oldPassword is incorrect');
   }
