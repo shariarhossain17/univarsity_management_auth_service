@@ -5,13 +5,13 @@ import {
 } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
 import { IAcademicFaculty } from './academic.facualty.interface';
-import { faculty } from './academic.facualty.model';
+import { AcademicFaculty } from './academic.facualty.model';
 import { ISearchparams } from './academic.faculty.interface';
 
 const createFaculty = async (
   data: string,
 ): Promise<IAcademicFaculty | null> => {
-  const result = await faculty.create(data);
+  const result = await AcademicFaculty.create(data);
   return result;
 };
 const getAllFaculty = async (
@@ -51,12 +51,11 @@ const getAllFaculty = async (
     sortData[sortBy] = sortOrder;
   }
   const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
-  const result = await faculty
-    .find(withConditions)
+  const result = await AcademicFaculty.find(withConditions)
     .sort(sortData)
     .skip(skip)
     .limit(limit);
-  const count = await faculty.countDocuments();
+  const count = await AcademicFaculty.countDocuments();
 
   return {
     meta: {
@@ -71,12 +70,12 @@ const getAllFaculty = async (
 const getSingleFaculty = async (
   id: string,
 ): Promise<IAcademicFaculty | null> => {
-  const result = await faculty.findById(id);
+  const result = await AcademicFaculty.findById(id);
   return result;
 };
 
 const deleteFaculty = async (id: string): Promise<IAcademicFaculty | null> => {
-  const result = await faculty.findByIdAndDelete(id);
+  const result = await AcademicFaculty.findByIdAndDelete(id);
   return result;
 };
 
@@ -84,7 +83,7 @@ const updateFaculty = async (
   id: string,
   payLoad: IAcademicFaculty,
 ): Promise<IAcademicFaculty | null> => {
-  const result = await faculty.findByIdAndUpdate(id, payLoad, {
+  const result = await AcademicFaculty.findByIdAndUpdate(id, payLoad, {
     new: true,
   });
   return result;
