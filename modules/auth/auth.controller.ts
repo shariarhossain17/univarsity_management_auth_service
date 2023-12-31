@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import sendResponse from '../../shared/sendResponse';
 
 import config from '../../config';
+import { IRefreshToken } from './auth.interface';
 import authServices from './auth.services';
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
@@ -37,7 +38,7 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   };
   res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse(res, {
+  sendResponse<IRefreshToken>(res, {
     statusCode: 200,
     success: true,
     message: 'user logged in successfully!!',

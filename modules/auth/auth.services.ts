@@ -2,7 +2,7 @@ import config from '../../config';
 import ApiError from '../../errors/ApiError';
 import { jwtHelper } from '../../helper/jwtHelper';
 import { User } from '../user/user.model';
-import { ILoginResponse, ILoginUser } from './auth.interface';
+import { ILoginResponse, ILoginUser, IRefreshToken } from './auth.interface';
 
 import { JwtPayload, Secret } from 'jsonwebtoken';
 
@@ -53,7 +53,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginResponse> => {
   };
 };
 
-const refreshToken = async (token: string) => {
+const refreshToken = async (token: string): Promise<IRefreshToken> => {
   let verifiedToken: JwtPayload;
   try {
     verifiedToken = jwtHelper.verifyToken(
@@ -66,7 +66,7 @@ const refreshToken = async (token: string) => {
 
   // checking delete user refresh tokem
 
-  const { userId } = verifiedToken;
+  const { userId, role } = verifiedToken;
 
   const user = new User();
 
@@ -77,6 +77,18 @@ const refreshToken = async (token: string) => {
   }
 
   // create refresh token
+  const newAccessToken = jwtHelper.createToken(
+    {
+      userId,
+      role,
+    },
+    config.jwt.jwt_refresh_secret as Secret,
+    config.jwt.jwt_refresh_expires_in as string,
+  );
+
+  return {
+    accessToken: newAccessToken,
+  };
 };
 
 export default {
