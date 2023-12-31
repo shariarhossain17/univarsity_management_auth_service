@@ -3,25 +3,25 @@ import zodValidate from '../../middleware/zodValidate';
 import facultyController from './academic.faculty.controller';
 import zodFacultySchema from './academic.faculty.zod.validation';
 
-const facultyRouter = express.Router();
+const academicFacultyRoute = express.Router();
 
-facultyRouter.post(
+academicFacultyRoute.post(
   '/create-faculty',
   zodValidate(zodFacultySchema.createFacultySchema),
   facultyController.createFaculty,
 );
 
 // get
-facultyRouter.get('/all-faculty', facultyController.getAllFaculty);
+academicFacultyRoute.get('/all-faculty', facultyController.getAllFaculty);
 
-facultyRouter.get('/:id', facultyController.getSingleFaculty);
+academicFacultyRoute.get('/:id', facultyController.getSingleFaculty);
 
-facultyRouter.delete('/:id', facultyController.deleteFaculty);
+academicFacultyRoute.delete('/:id', facultyController.deleteFaculty);
 
-facultyRouter.patch(
+academicFacultyRoute.patch(
   '/:id',
   zodValidate(zodFacultySchema.updateFacultySchema),
   facultyController.updateFaculty,
 );
 
-export default facultyRouter;
+export default academicFacultyRoute;

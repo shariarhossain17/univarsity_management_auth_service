@@ -1,8 +1,9 @@
 import express from 'express';
 import semesterRoute from '../modules/academi_semister/academic.semester.route';
-import facultyRoute from '../modules/academic_facualty/academic.faculty.route';
+import academicFacultyRoute from '../modules/academic_facualty/academic.faculty.route';
 import departMentRoute from '../modules/ademic_department/academicDepartment.route';
 import adminRoute from '../modules/admin/admin.route';
+import facultyRoute from '../modules/faculty/faculty.route';
 import mangeDepartmentRoute from '../modules/manage_department/manage.department.route';
 import studentRoute from '../modules/student/student.route';
 import userRoutes from '../modules/user/user.route';
@@ -19,8 +20,8 @@ const moduleRouter = [
     route: semesterRoute,
   },
   {
-    path: '/faculty',
-    route: facultyRoute,
+    path: '/academic-faculty',
+    route: academicFacultyRoute,
   },
   {
     path: '/department',
@@ -33,6 +34,10 @@ const moduleRouter = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/faculty',
+    route: facultyRoute,
   },
   {
     path: '/management-department',
