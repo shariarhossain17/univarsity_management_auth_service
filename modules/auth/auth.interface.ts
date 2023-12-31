@@ -3,6 +3,11 @@ export type ILoginUser = {
   password: string;
 };
 
+export type IChangePassword = {
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type ILoginResponse = {
   accessToken: string;
   refreshToken?: string;
