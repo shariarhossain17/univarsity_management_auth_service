@@ -12,6 +12,11 @@ userRoutes.post(
   userController.createStudent,
 );
 userRoutes.post(
+  '/create-faculty',
+  zodValidate(createUserZodSchema),
+  userController.createAdmin,
+);
+userRoutes.post(
   '/create-admin',
   zodValidate(createUserZodSchema),
   userController.createAdmin,
