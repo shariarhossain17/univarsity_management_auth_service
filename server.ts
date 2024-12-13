@@ -13,6 +13,8 @@ let server: Server;
 connectDB();
 
 // eslint-disable-next-line prefer-const
+
+console.log(config.port);
 server = app.listen(config.port, () => {
   logger.info(
     colors.yellow(`university-management server running on ${config.port}`),
