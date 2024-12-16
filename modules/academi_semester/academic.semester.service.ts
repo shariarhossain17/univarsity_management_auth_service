@@ -7,6 +7,7 @@ import {
 import { IPaginationOption } from '../../interface/paginationInterface';
 import {
   IAcademicSemester,
+  IAcademicSemesterEvent,
   ISearchparams,
 } from './academic.semister.interface';
 import { academicSemester } from './academic.semister.model';
@@ -110,4 +111,39 @@ export const deleteSemesterByIdService = async (
 ): Promise<IAcademicSemester | null> => {
   const result = academicSemester.findByIdAndDelete(id);
   return result;
+};
+
+export const createSemesterFromEvents = async (
+  e: IAcademicSemesterEvent,
+): Promise<IAcademicSemester> => {
+  const result = await academicSemester.create({
+    title: e.title,
+    year: e.year,
+    code: e.code,
+    startMonth: e.startMonth,
+    endMonth: e.endMonth,
+    synchId: e.id,
+  });
+
+  return result;
+};
+
+export const updateSemesterFromEvents = async (
+  e: IAcademicSemesterEvent,
+): Promise<IAcademicSemester | null> => {
+  console.log(e);
+  const updatedSemester = await academicSemester.findOneAndUpdate(
+    { synchId: e.id },
+    {
+      $set: {
+        title: e.title,
+        year: e.year,
+        code: e.code,
+        startMonth: e.startMonth,
+        endMonth: e.endMonth,
+      },
+    },
+  );
+
+  return updatedSemester;
 };

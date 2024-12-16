@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
+import subscribeToEvents from '../event';
 import { errorLogger, logger } from '../shared/logger';
 import { RedisClient } from '../shared/redis';
 async function connectDB() {
   try {
     await RedisClient.connect();
-    await mongoose.connect(`mongodb://127.0.0.1:27017/university-management`);
+    await subscribeToEvents();
+    await mongoose.connect(`mongodb://localhost:27017/university-management`);
     logger.info('database connected');
   } catch (error) {
     errorLogger.error('database not connect');

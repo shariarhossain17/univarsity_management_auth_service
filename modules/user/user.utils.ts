@@ -1,4 +1,4 @@
-import { IAcademicSemester } from '../academi_semister/academic.semister.interface';
+import { IAcademicSemester } from '../academi_semester/academic.semister.interface';
 import { User } from './user.model';
 
 export const findStudentId = async (): Promise<string | undefined> => {

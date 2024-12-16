@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import config from '../../config/index';
 import ApiError from '../../errors/ApiError';
-import { IAcademicSemester } from '../academi_semister/academic.semister.interface';
-import { academicSemester } from '../academi_semister/academic.semister.model';
+import { IAcademicSemester } from '../academi_semester/academic.semister.interface';
+import { academicSemester } from '../academi_semester/academic.semister.model';
 import { IAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
 import { IFaculty } from '../faculty/faculty.interface';

@@ -3,7 +3,7 @@ import { keys } from '../../constants/paginationContstants';
 import catchAsync from '../../shared/catchAsync';
 import sendResponse from '../../shared/sendResponse';
 import pick from '../../utils/pick';
-import { filterKeys } from '../academi_semister/academicsemester.constatnt';
+import { filterKeys } from '../academi_semester/academicsemester.constatnt';
 import { IAcademicFaculty } from './academic.facualty.interface';
 import facultyService from './academic.faculty.services';
 
