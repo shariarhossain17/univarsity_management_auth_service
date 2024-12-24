@@ -131,7 +131,6 @@ export const createSemesterFromEvents = async (
 export const updateSemesterFromEvents = async (
   e: IAcademicSemesterEvent,
 ): Promise<IAcademicSemester | null> => {
-  console.log(e);
   const updatedSemester = await academicSemester.findOneAndUpdate(
     { synchId: e.id },
     {

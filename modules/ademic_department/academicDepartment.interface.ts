@@ -4,6 +4,7 @@ import { IAcademicFaculty } from '../academic_facualty/academic.facualty.interfa
 export type IAcademicDepartment = {
   title: string;
   academicFaculty: Types.ObjectId | IAcademicFaculty;
+  synchId: string;
 };
 
 export type AcademicDepartmentModel = Model<
@@ -13,4 +14,10 @@ export type AcademicDepartmentModel = Model<
 
 export type ISearchparams = {
   searchParams?: string;
+};
+
+export type IAcademicDepartmentEvent = {
+  id: string;
+  title: string;
+  academicFacultyId: string;
 };

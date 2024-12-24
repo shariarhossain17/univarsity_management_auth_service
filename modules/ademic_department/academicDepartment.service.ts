@@ -4,8 +4,10 @@ import {
   paginationHelper,
 } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
+import { AcademicFaculty } from '../academic_facualty/academic.facualty.model';
 import {
   IAcademicDepartment,
+  IAcademicDepartmentEvent,
   ISearchparams,
 } from './academicDepartment.interface';
 import { departMentModel } from './academicDepartment.model';
@@ -98,6 +100,22 @@ const updateDepartmentById = async (
       new: true,
     })
     .populate('academicFaculty');
+  return result;
+};
+
+export const createAcademicDepartmentFromEvents = async (
+  e: IAcademicDepartmentEvent,
+): Promise<IAcademicDepartment> => {
+  const academicFaculty = await AcademicFaculty.findOne({
+    syncId: e.academicFacultyId,
+  });
+
+  const result = await departMentModel.create({
+    title: e.title,
+    academicFaculty: academicFaculty?._id,
+    synchId: e.id,
+  });
+
   return result;
 };
 

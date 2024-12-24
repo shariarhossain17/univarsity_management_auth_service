@@ -4,7 +4,10 @@ import {
   paginationHelper,
 } from '../../helper/paginationHelper';
 import { IPaginationOption } from '../../interface/paginationInterface';
-import { IAcademicFaculty } from './academic.facualty.interface';
+import {
+  IAcademicFaculty,
+  IAcademicFacultyEvent,
+} from './academic.facualty.interface';
 import { AcademicFaculty } from './academic.facualty.model';
 import { ISearchparams } from './academic.faculty.interface';
 
@@ -86,6 +89,17 @@ const updateFaculty = async (
   const result = await AcademicFaculty.findByIdAndUpdate(id, payLoad, {
     new: true,
   });
+  return result;
+};
+
+export const createFacultyFromEvents = async (
+  e: IAcademicFacultyEvent,
+): Promise<IAcademicFaculty> => {
+  const result = await AcademicFaculty.create({
+    title: e.title,
+    syncId: e.id,
+  });
+
   return result;
 };
 
