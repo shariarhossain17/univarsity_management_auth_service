@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../../config/index';
 import ApiError from '../../errors/ApiError';
+import { RedisClient } from '../../shared/redis';
 import { IAcademicSemester } from '../academi_semester/academic.semister.interface';
 import { academicSemester } from '../academi_semester/academic.semister.model';
 import { IAdmin } from '../admin/admin.interface';
@@ -9,6 +10,7 @@ import { IFaculty } from '../faculty/faculty.interface';
 import { Faculty } from '../faculty/faculty.model';
 import { IStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
+import { EVENT_STUDENT_CREATE } from './user.constant';
 import { IUser } from './user.interface';
 import { User } from './user.model';
 import {
@@ -24,7 +26,6 @@ export const createStudent = async (
   if (!userData.password) {
     userData.password = config.student_default_password as string;
   }
-
   userData.role = 'student';
   const academicSemesterById = await academicSemester
     .findById(student.academicSemester)
@@ -82,6 +83,15 @@ export const createStudent = async (
       ],
     });
   }
+
+  if (newUserData) {
+    await RedisClient.pubClient(
+      EVENT_STUDENT_CREATE,
+      JSON.stringify(newUserData.student),
+    );
+  }
+
+  // console.log(newUserData);
 
   return newUserData;
 };

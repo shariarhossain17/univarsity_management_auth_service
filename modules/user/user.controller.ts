@@ -7,6 +7,7 @@ const createStudent: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { student, ...userData } = req.body;
     const user = await userService.createStudent(student, userData);
+
     sendResponse(res, {
       statusCode: 200,
       success: true,
