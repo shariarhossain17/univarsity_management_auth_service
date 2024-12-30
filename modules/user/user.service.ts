@@ -23,6 +23,7 @@ export const createStudent = async (
   student: IStudent,
   userData: IUser,
 ): Promise<IUser | null> => {
+  console.log(userData.password);
   if (!userData.password) {
     userData.password = config.student_default_password as string;
   }
