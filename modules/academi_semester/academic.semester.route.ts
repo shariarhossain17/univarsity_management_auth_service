@@ -26,10 +26,7 @@ semesterRoute.patch(
 semesterRoute.delete('/:id', academicSemesterController.deleteSemesterById);
 
 // get semester
-semesterRoute.get(
-  '/all-semester',
-  academicSemesterController.getAllAcademicSemester,
-);
+semesterRoute.get('/', academicSemesterController.getAllAcademicSemester);
 
 semesterRoute.get('/:id', academicSemesterController.getSingleSemesterById);
 

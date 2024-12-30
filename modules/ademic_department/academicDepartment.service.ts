@@ -62,7 +62,7 @@ const getAllAcademicDepartment = async (
   const withConditions = addCondition.length > 0 ? { $and: addCondition } : {};
   const result = await departMentModel
     .find(withConditions)
-    .populate('academicFaculty')
+    // .populate('academicFaculty')
     .limit(limit)
     .skip(skip)
     .sort(sortData);
@@ -113,7 +113,7 @@ export const createAcademicDepartmentFromEvents = async (
   const result = await departMentModel.create({
     title: e.title,
     academicFaculty: academicFaculty?._id,
-    synchId: e.id,
+    syncId: e.id,
   });
 
   return result;

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { keys } from '../../constants/paginationContstants';
-import { IgenericResponse } from '../../helper/paginationHelper';
 import catchAsync from '../../shared/catchAsync';
 import sendResponse from '../../shared/sendResponse';
 import pick from '../../utils/pick';
@@ -31,11 +30,12 @@ const getAllAcademicDepartment = catchAsync(
       paginationOptions,
     );
 
-    sendResponse<IgenericResponse<IAcademicDepartment[]>>(res, {
+    sendResponse(res, {
       statusCode: 200,
       success: true,
       message: 'department create successfully!!',
-      result: result,
+      meta: result.meta,
+      result: result.data,
     });
   },
 );

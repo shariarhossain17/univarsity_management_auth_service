@@ -16,12 +16,12 @@ academicFacultyRoute.post(
 
 // get
 academicFacultyRoute.get(
-  '/all-faculty',
-  auth(
-    ENUM_USER_ROLE.SUPER_ADMIN,
-    ENUM_USER_ROLE.ADMIN,
-    ENUM_USER_ROLE.STUDENT,
-  ),
+  '/',
+  // auth(
+  //   ENUM_USER_ROLE.SUPER_ADMIN,
+  //   ENUM_USER_ROLE.ADMIN,
+  //   ENUM_USER_ROLE.STUDENT,
+  // ),
   facultyController.getAllFaculty,
 );
 

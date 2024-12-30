@@ -122,7 +122,7 @@ export const createSemesterFromEvents = async (
     code: e.code,
     startMonth: e.startMonth,
     endMonth: e.endMonth,
-    synchId: e.id,
+    syncId: e.id,
   });
 
   return result;
@@ -132,7 +132,7 @@ export const updateSemesterFromEvents = async (
   e: IAcademicSemesterEvent,
 ): Promise<IAcademicSemester | null> => {
   const updatedSemester = await academicSemester.findOneAndUpdate(
-    { synchId: e.id },
+    { syncId: e.id },
     {
       $set: {
         title: e.title,

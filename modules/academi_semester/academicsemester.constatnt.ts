@@ -34,7 +34,7 @@ export const validSemesterCode: { [key: string]: string } = {
 
 export const searchParamsFields = ['title', 'code', 'year'];
 
-export const filterKeys = ['searchParams', 'year', 'code', 'title'];
+export const filterKeys = ['searchParams', 'year', 'code', 'title', 'syncId'];
 
 export const EVENT_ACADEMIC_SEMESTER_CREATED = 'academicSemester.created';
 export const EVENT_ACADEMIC_SEMESTER_UPDATED = 'academicSemester.updated';

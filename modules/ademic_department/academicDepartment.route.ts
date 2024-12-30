@@ -11,10 +11,7 @@ departMentRoute.post(
   academicDepartmentController.createAcademicDepartment,
 );
 
-departMentRoute.get(
-  '/all-department',
-  academicDepartmentController.getAllAcademicDepartment,
-);
+departMentRoute.get('/', academicDepartmentController.getAllAcademicDepartment);
 departMentRoute.get('/:id', academicDepartmentController.getSingleDepartment);
 departMentRoute.delete(
   '/:id',

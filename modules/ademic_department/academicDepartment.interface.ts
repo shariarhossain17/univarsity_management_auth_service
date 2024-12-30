@@ -4,7 +4,7 @@ import { IAcademicFaculty } from '../academic_facualty/academic.facualty.interfa
 export type IAcademicDepartment = {
   title: string;
   academicFaculty: Types.ObjectId | IAcademicFaculty;
-  synchId: string;
+  syncId: string;
 };
 
 export type AcademicDepartmentModel = Model<

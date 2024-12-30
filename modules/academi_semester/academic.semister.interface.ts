@@ -22,7 +22,7 @@ export type IAcademicSemester = {
   code: semesterCode;
   startMonth: Month;
   endMonth: Month;
-  synchId: string;
+  syncId: string;
 };
 
 export type IAcademicSemesterEvent = {
